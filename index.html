@@ -1,0 +1,10 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>Station map of WMO OSCAR in Japan</title>
+</head><body>
+<h1 id=h1></h1>
+<script type="module">h1.textContent = document.title;</script>
+<script type="module" src="https://code4fukui.github.io/csv-map/csv-map.js"></script>
+<csv-map src="data/station_jp.csv"></csv-map>
+<div id=credit>
+DATA: <a href=https://oscar.wmo.int/>WMO OSCAR</a> TSV → <a href=data/station_jp.csv>CSV</a> (<a href=https://github.com/code4fukui/oscar/>src on GitHub</a>)
+</div>
