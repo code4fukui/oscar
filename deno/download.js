@@ -1,6 +1,7 @@
 import { TSV } from "https://js.sabae.cc/TSV.js";
 import { CSV } from "https://js.sabae.cc/CSV.js";
 import { fetchOrLoad } from "https://js.sabae.cc/fetchOrLoad.js";
+import { ArrayUtil } from "https://js.sabae.cc/ArrayUtil.js";
 
 // https://www.data.go.jp/data/dataset/mlit_20140919_0756/resource/b5024877-1ada-4812-9d57-08d629cec933
 const url = "https://oscar.wmo.int/oscar/vola/vola_legacy_report.txt";
@@ -32,3 +33,25 @@ const jp = tsv.filter(t => t.CountryArea == "Japan");
 await Deno.writeTextFile("../data/station_jp.csv", CSV.stringify(jp));
 //convertLocation(jp[0]);
 console.log(jp[0]);
+console.log(tsv.length, jp.length);
+
+const region = ArrayUtil.toUniqueByString(tsv.map(t => {
+  const names = ["RegionId", "RegionName"];
+  const obj = {};
+  for (const name of names) {
+    obj[name] = t[name];
+  }
+  return obj;
+}));
+await Deno.writeTextFile("../data/region.csv", CSV.stringify(region));
+
+const countryarea = ArrayUtil.toUniqueByString(tsv.map(t => {
+  const names = ["CountryCode", "CountryArea", "RegionId"];
+  const obj = {};
+  for (const name of names) {
+    obj[name] = t[name];
+  }
+  return obj;
+}));
+await Deno.writeTextFile("../data/countryarea.csv", CSV.stringify(countryarea));
+console.log(countryarea.length);
